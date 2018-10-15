@@ -7,6 +7,7 @@ jobs:
       MINGW_UPPER: MINGW64
       MINGW_LOWER: mingw64
       MINGW_ARCH: x86_64
+      CATCH_VER: catch-1.6.0-1-any
     strategy:
       maxParallel: 5
     steps:
@@ -37,9 +38,9 @@ jobs:
           MSYSTEM: $(MINGW_UPPER)
           CHERE_INVOKING: yes
           MINGW_INSTALLS: $(MINGW_LOWER)
-      #- task: PublishBuildArtifacts@1
-      #  displayName: Publish packages
-      #  continueOnError: true
-      #  inputs:
-      #    pathtoPublish: $(Build.SourcesDirectory)/mingw-w64-$(MINGW_ARCH)-openblas-0.3.3-1-any.pkg.tar.xz
-      #    artifactName: openblas-$(MINGW_ARCH)
+      - task: PublishBuildArtifacts@1
+        displayName: Publish packages
+        continueOnError: true
+        inputs:
+          pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
+          artifactName: $(MINGW_ARCH)-$(CATCH_VER)
