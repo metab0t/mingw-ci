@@ -39,8 +39,14 @@ jobs:
           CHERE_INVOKING: yes
           MINGW_INSTALLS: $(MINGW_LOWER)
       - task: PublishBuildArtifacts@1
-        displayName: Publish packages
+        displayName: Publish catch
         continueOnError: true
         inputs:
           pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
           artifactName: $(MINGW_ARCH)-$(CATCH_VER)
+      - task: PublishBuildArtifacts@2
+        displayName: Publish catch 2
+        continueOnError: true
+        inputs:
+          pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
+          artifactName: $(MINGW_ARCH)-$(CATCH_VER)-2
