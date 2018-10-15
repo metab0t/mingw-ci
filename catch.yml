@@ -4,6 +4,10 @@ steps:
           %CD:~0,2%\msys64\usr\bin\bash -lc "makepkg-mingw -sCLf --noconfirm"
           cd ..
     displayName: Build catch
+    env:
+      MSYSTEM: $(MINGW_UPPER)
+      CHERE_INVOKING: yes
+      MINGW_INSTALLS: $(MINGW_LOWER)
   - task: PublishBuildArtifacts@1
     displayName: Publish catch
     continueOnError: true
