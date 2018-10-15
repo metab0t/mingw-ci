@@ -1,0 +1,16 @@
+steps:
+  - script: |
+          cd ${{ parameters.name }}
+          %CD:~0,2%\msys64\usr\bin\bash -lc "makepkg-mingw -sCLf --noconfirm"
+          cd ..
+    displayName: Build ${{ parameters.name }}
+    env:
+      MSYSTEM: $(MINGW_UPPER)
+      CHERE_INVOKING: yes
+      MINGW_INSTALLS: $(MINGW_LOWER)
+  - task: PublishBuildArtifacts@1
+    displayName: Publish ${{ parameters.name }}
+    continueOnError: true
+    inputs:
+      pathtoPublish: $(Build.SourcesDirectory)/${{ parameters.name }}/mingw-w64-$(MINGW_ARCH)-${{ parameters.name }}-${{ parameters.version }}-any.pkg.tar.xz
+      artifactName: mingw-w64-$(MINGW_ARCH)-${{ parameters.name }}-${{ parameters.version }}-any.pkg.tar.xz
