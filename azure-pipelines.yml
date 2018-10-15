@@ -1,5 +1,5 @@
 jobs:
-  - job: Ssetup
+  - job: Setup
     timeoutInMinutes: 360
     pool:
       vmImage: vs2017-win2016
@@ -32,8 +32,6 @@ jobs:
   - job: CATCH
     dependsOn: Setup
     timeoutInMinutes: 360
-    pool:
-      vmImage: vs2017-win2016
     variables:
       MINGW_UPPER: MINGW64
       MINGW_LOWER: mingw64
