@@ -1,5 +1,5 @@
 jobs:
-  - job: MINGW
+  - job: Ssetup
     timeoutInMinutes: 360
     pool:
       vmImage: vs2017-win2016
@@ -28,25 +28,32 @@ jobs:
           set PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
           %CD:~0,2%\msys64\usr\bin\sed -i "s|#CacheDir.*|CacheDir=/c/Users/%USERNAME%/AppData/Local/Temp|g" /etc/pacman.conf
         displayName: CI Preparation
-      - script: |
+
+  - job: CATCH
+    dependsOn: Setup
+    timeoutInMinutes: 360
+    pool:
+      vmImage: vs2017-win2016
+    variables:
+      MINGW_UPPER: MINGW64
+      MINGW_LOWER: mingw64
+      MINGW_ARCH: x86_64
+      CATCH_VER: catch-1.6.0-1-any
+    strategy:
+      maxParallel: 5
+    steps:
+    - script: |
           cd catch
           %CD:~0,2%\msys64\usr\bin\bash -lc "makepkg-mingw -sCLf --noconfirm"
-          dir
           cd ..
-        displayName: Catch Build
-        env:
-          MSYSTEM: $(MINGW_UPPER)
-          CHERE_INVOKING: yes
-          MINGW_INSTALLS: $(MINGW_LOWER)
-      - task: PublishBuildArtifacts@1
-        displayName: Publish catch
-        continueOnError: true
-        inputs:
-          pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
-          artifactName: $(MINGW_ARCH)-$(CATCH_VER)
-      - task: PublishBuildArtifacts@1
-        displayName: Publish catch 2
-        continueOnError: true
-        inputs:
-          pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
-          artifactName: $(MINGW_ARCH)-$(CATCH_VER)-2
+      displayName: Build catch
+      env:
+        MSYSTEM: $(MINGW_UPPER)
+        CHERE_INVOKING: yes
+        MINGW_INSTALLS: $(MINGW_LOWER)
+    - task: PublishBuildArtifacts@1
+      displayName: Publish catch
+      continueOnError: true
+      inputs:
+        pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
+        artifactName: $(MINGW_ARCH)-$(CATCH_VER)
