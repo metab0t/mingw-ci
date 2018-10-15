@@ -1,0 +1,33 @@
+
+# Maintainer: David Grayson <davidegrayson@gmail.com>
+
+_realname=catch
+pkgbase=mingw-w64-${_realname}
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="Multi-paradigm automated test framework for C++ and Objective-C (mingw-w64)"
+arch=('any')
+url='https://github.com/philsquared/Catch'
+checkdepends=("${MINGW_PACKAGE_PREFIX}-gcc"
+              "${MINGW_PACKAGE_PREFIX}-cmake")
+license=('custom')
+source=(${_realname}-${pkgver}.tar.gz::https://github.com/philsquared/Catch/archive/v${pkgver}.tar.gz)
+sha256sums=(SKIP)
+
+check() {
+  rm -rf "${srcdir}/test-${MINGW_CHOST}"
+  mkdir -p "${srcdir}/test-${MINGW_CHOST}"
+  cd "${srcdir}/test-${MINGW_CHOST}"
+  cmake "../Catch2-${pkgver}" -G"MSYS Makefiles" -DCMAKE_CXX_FLAGS='--std=gnu++11'
+  make
+  ./SelfTest.exe
+}
+
+package() {
+  cd "${srcdir}/Catch2-${pkgver}"
+  mkdir -p "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}"
+  install -m644 LICENSE_1_0.txt "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE_1_0.txt"
+  mkdir -p "${pkgdir}${MINGW_PREFIX}/include/"
+  install -m644 single_include/catch.hpp "${pkgdir}${MINGW_PREFIX}/include/"
+}
