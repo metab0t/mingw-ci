@@ -1,16 +1,16 @@
 steps:
   - script: |
-          cd catch
+          cd openblas
           %CD:~0,2%\msys64\usr\bin\bash -lc "makepkg-mingw -sCLf --noconfirm"
           cd ..
-    displayName: Build catch
+    displayName: Build openblas
     env:
       MSYSTEM: $(MINGW_UPPER)
       CHERE_INVOKING: yes
       MINGW_INSTALLS: $(MINGW_LOWER)
   - task: PublishBuildArtifacts@1
-    displayName: Publish catch
+    displayName: Publish openblas
     continueOnError: true
     inputs:
-      pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(catch)-any.pkg.tar.xz
-      artifactName: mingw-w64-$(MINGW_ARCH)-$(catch)-any.pkg.tar.xz
+      pathtoPublish: $(Build.SourcesDirectory)/openblas/mingw-w64-$(MINGW_ARCH)-$(openblas)-any.pkg.tar.xz
+      artifactName: mingw-w64-$(MINGW_ARCH)-$(openblas)-any.pkg.tar.xz
