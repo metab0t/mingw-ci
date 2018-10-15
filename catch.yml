@@ -1,0 +1,12 @@
+steps:
+  - script: |
+          cd catch
+          %CD:~0,2%\msys64\usr\bin\bash -lc "makepkg-mingw -sCLf --noconfirm"
+          cd ..
+    displayName: Build catch
+  - task: PublishBuildArtifacts@1
+    displayName: Publish catch
+    continueOnError: true
+    inputs:
+      pathtoPublish: $(Build.SourcesDirectory)/catch/mingw-w64-$(MINGW_ARCH)-$(CATCH_VER).pkg.tar.xz
+      artifactName: $(MINGW_ARCH)-$(CATCH_VER)
