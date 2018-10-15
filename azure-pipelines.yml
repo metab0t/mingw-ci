@@ -29,5 +29,5 @@ jobs:
         displayName: CI Preparation
       - template: pkg.yml
         parameters:
-          name: catch
+          name: ’catch‘
           version: ‘1.6.0-1’

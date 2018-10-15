@@ -12,7 +12,6 @@ steps:
       MSYSTEM: $(MINGW_UPPER)
       CHERE_INVOKING: yes
       MINGW_INSTALLS: $(MINGW_LOWER)
-      name: ${{ parameters.name }}
   - task: PublishBuildArtifacts@1
     displayName: Publish ${{ parameters.name }}
     continueOnError: true
