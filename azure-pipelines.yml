@@ -30,4 +30,4 @@ jobs:
       - template: pkg.yml
         parameters:
           name: catch
-          version: â€˜1.6.0-1â€™
+          version: ‘1.6.0-1’
