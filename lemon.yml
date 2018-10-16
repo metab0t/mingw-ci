@@ -1,6 +1,6 @@
 steps:
   - script: |
-          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release; ls; tar -xf sqlite.tar.gz; cd sqlite/tool; mkdir lemon; /mingw64/bin/gcc -s -O2 -o lemon lemon.c; cp lemon.exe lemon; cp lempar.c lemon'
+          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release; mv sqlite.tar.gz@r=release sqlite.tar.gz; tar -xf sqlite.tar.gz; cd sqlite/tool; mkdir lemon; /mingw64/bin/gcc -s -O2 -o lemon lemon.c; cp lemon.exe lemon; cp lempar.c lemon'
     displayName: Build lemon
     env:
       MSYSTEM: $(MINGW_UPPER)
