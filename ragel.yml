@@ -6,6 +6,7 @@ steps:
       MSYSTEM: $(MINGW_UPPER)
       CHERE_INVOKING: yes
       MINGW_INSTALLS: $(MINGW_LOWER)
+      ragel: $(ragel)
   - task: PublishBuildArtifacts@1
     displayName: Publish ragel
     continueOnError: true
