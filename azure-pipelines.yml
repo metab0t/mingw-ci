@@ -9,6 +9,7 @@ jobs:
       MINGW_ARCH: x86_64
       catch: catch-1.6.0-1
       openblas: openblas-0.3.3-1
+      ragel: ragel-6.10
     strategy:
       maxParallel: 5
     steps:
@@ -29,5 +30,6 @@ jobs:
           set PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
           %CD:~0,2%\msys64\usr\bin\sed -i "s|#CacheDir.*|CacheDir=/c/Users/%USERNAME%/AppData/Local/Temp|g" /etc/pacman.conf
         displayName: CI Preparation
-      - template: catch.yml
-      - template: openblas.yml
+      #- template: catch.yml
+      #- template: openblas.yml
+      - template: ragel.yml
