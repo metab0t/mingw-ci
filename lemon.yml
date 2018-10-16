@@ -1,6 +1,6 @@
 steps:
   - script: |
-          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release; tar -xf sqlite.tar.gz; cd sqlite/tool; /mingw64/bin/gcc -s -O2 -o lemon lemon.c'
+          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release; tar -xf sqlite.tar.gz; cd sqlite/tool; mkdir lemon; /mingw64/bin/gcc -s -O2 -o lemon lemon.c; cp lemon.exe lemon; cp lempar.c lemon'
     displayName: Build lemon
     env:
       MSYSTEM: $(MINGW_UPPER)
@@ -10,7 +10,5 @@ steps:
     displayName: Publish lemon
     continueOnError: true
     inputs:
-      pathtoPublish:
-        - $(Build.SourcesDirectory)/sqlite/tool/lemon.exe
-        - $(Build.SourcesDirectory)/sqlite/tool/lempar.c
+      pathtoPublish: $(Build.SourcesDirectory)/sqlite/tool/lemon
       artifactName: lemon
