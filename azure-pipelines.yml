@@ -10,6 +10,7 @@ jobs:
       catch: catch-1.6.0-1
       openblas: openblas-0.3.3-1
       ragel: ragel-6.10
+      re2c: re2c-1.1.1
     strategy:
       maxParallel: 5
     steps:
@@ -32,4 +33,5 @@ jobs:
         displayName: CI Preparation
       #- template: catch.yml
       #- template: openblas.yml
-      - template: ragel.yml
+      #- template: ragel.yml
+      - template: re2c.yml

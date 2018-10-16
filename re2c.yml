@@ -1,0 +1,21 @@
+steps:
+  - script: |
+          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget https://github.com/skvadrik/re2c/releases/download/$version/$re2c.tar.gz;
+          tar -xf $re2c.tar.gz; cd $re2c;
+          PATH=$PATH:/mingw64/bin;
+          export CC=/mingw64/bin/gcc CXX=/mingw64/bin/g++;
+          ./configure --prefix=/mingw64/;
+          make LDFLAGS="--static" -j8'
+    displayName: Build re2c
+    env:
+      MSYSTEM: $(MINGW_UPPER)
+      CHERE_INVOKING: yes
+      MINGW_INSTALLS: $(MINGW_LOWER)
+      version: '1.1.1'
+      re2c: $(re2c)
+  - task: PublishBuildArtifacts@1
+    displayName: Publish re2c
+    continueOnError: true
+    inputs:
+      pathtoPublish: $(Build.SourcesDirectory)/$(re2c)/re2c.exe
+      artifactName: re2c.exe
