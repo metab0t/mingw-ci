@@ -34,4 +34,5 @@ jobs:
       #- template: catch.yml
       #- template: openblas.yml
       #- template: ragel.yml
-      - template: re2c.yml
+      #- template: re2c.yml
+      - template: lemon.yml
