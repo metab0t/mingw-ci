@@ -1,9 +1,6 @@
 steps:
   - script: |
-          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget http://www.colm.net/files/ragel/$ragel.tar.gz;
-          tar -xf $ragel.tar.gz; cd $ragel;
-          PATH=$PATH:/mingw64/bin; CC=/mingw64/bin/gcc CXX=/mingw64/bin/g++ ./configure --prefix=/mingw64/;
-          make LDFLAGS="--static" -j8'
+          %CD:~0,2%\msys64\usr\bin\bash -lc 'wget http://www.colm.net/files/ragel/$ragel.tar.gz; tar -xf $ragel.tar.gz; cd $ragel; PATH=$PATH:/mingw64/bin; CC=/mingw64/bin/gcc CXX=/mingw64/bin/g++ ./configure --prefix=/mingw64/;make LDFLAGS="--static" -j8'
     displayName: Build ragel
     env:
       MSYSTEM: $(MINGW_UPPER)
